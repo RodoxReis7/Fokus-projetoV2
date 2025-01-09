@@ -25,8 +25,11 @@ function criarElementoTarefa(tarefa) {
 
   const paragrafo = document.createElement("p");
   paragrafo.textContent = tarefa.descricao;
+  paragrafo.classList.add("app__section-task-list-item-description");
 
   const botao = document.createElement("button");
+  botao.classList.add("app_button-edit");
+
   const imagemBotao = document.createElement("img");
   imagemBotao.setAttribute("src", "/imagens/edit.png");
   botao.append(imagemBotao);
@@ -56,10 +59,13 @@ formAdicionarTarefa.addEventListener("submit", (evento) => {
 
   // Depois, adicionamos essa tarefa ao nosso array de tarefas.
   tarefas.push(tarefa);
-
+  const elementoTarefa = criarElementoTarefa(tarefa);
+  ulTarefas.append(elementoTarefa);
   // E, finalmente, armazenamos nossa lista de tarefas no localStorage.
   // Convertendo o array para uma string em formato JSON para poder armazenar.
   localStorage.setItem("tarefas", JSON.stringify(tarefas));
+  textarea.value = "";
+  formAdicionarTarefa.classList.add("hidden");
 });
 
 tarefas.forEach((tarefa) => {
