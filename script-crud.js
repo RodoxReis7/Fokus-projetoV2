@@ -11,6 +11,10 @@ const textarea = document.querySelector(".app__form-textarea");
 // Esta é a nossa lista (ou array) de tarefas. Ela começa vazia porque ainda não adicionamos nenhuma tarefa.
 const tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
 
+function atualizarTarefas() {
+  localStorage.setItem("tarefas", JSON.stringify(tarefas));
+}
+
 const ulTarefas = document.querySelector(".app__section-task-list");
 
 function criarElementoTarefa(tarefa) {
@@ -35,6 +39,8 @@ function criarElementoTarefa(tarefa) {
   botao.onclick = () => {
     const novaDescricao = prompt("Qual é o novo nome da tarefa?");
     paragrafo.textContent = novaDescricao;
+    tarefa.descricao = novaDescricao;
+    atualizarTarefas();
   };
 
   const imagemBotao = document.createElement("img");
@@ -70,7 +76,7 @@ formAdicionarTarefa.addEventListener("submit", (evento) => {
   ulTarefas.append(elementoTarefa);
   // E, finalmente, armazenamos nossa lista de tarefas no localStorage.
   // Convertendo o array para uma string em formato JSON para poder armazenar.
-  localStorage.setItem("tarefas", JSON.stringify(tarefas));
+  atualizarTarefas();
   textarea.value = "";
   formAdicionarTarefa.classList.add("hidden");
 });
