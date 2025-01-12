@@ -46,6 +46,18 @@ function criarElementoTarefa(tarefa) {
     }
   };
 
+  // Esta linha pega o botão de cancelar tarefa baseado na classe CSS.
+  // Selecione o botão de Cancelar que adicionamos ao formulário
+  const btnCancelarTarefa = document.querySelector(".app__form-footer__button--cancel");
+
+  // Crie uma função para limpar o conteúdo do textarea e esconder o formulário
+  const limparFormulario = () => {
+    textarea.value = ""; // Limpe o conteúdo do textarea
+    formAdicionarTarefa.classList.add("hidden"); // Adicione a classe 'hidden' ao formulário para escondê-lo
+  };
+  // Associe a função limparFormulario ao evento de clique do botão Cancelar
+  btnCancelarTarefa.addEventListener("click", limparFormulario);
+
   const imagemBotao = document.createElement("img");
   imagemBotao.setAttribute("src", "/imagens/edit.png");
   botao.append(imagemBotao);
