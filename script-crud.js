@@ -8,6 +8,8 @@ const formAdicionarTarefa = document.querySelector(".app__form-add-task");
 // E aqui, pegamos a área de texto onde o usuário digita a descrição da tarefa.
 const textarea = document.querySelector(".app__form-textarea");
 
+const paragrafoDescricaoTarefa = document.querySelector(".app__section-active-task-description");
+
 // Esta é a nossa lista (ou array) de tarefas. Ela começa vazia porque ainda não adicionamos nenhuma tarefa.
 const tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
 
@@ -65,6 +67,11 @@ function criarElementoTarefa(tarefa) {
   li.append(svg);
   li.append(paragrafo);
   li.append(botao);
+
+  li.onclick = () => {
+    paragrafoDescricaoTarefa.textContent = tarefa.descricao;
+    li.classList.add("app__section-task-list-item-active");
+  };
   return li;
 }
 
