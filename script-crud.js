@@ -13,6 +13,8 @@ const paragrafoDescricaoTarefa = document.querySelector(".app__section-active-ta
 // Esta é a nossa lista (ou array) de tarefas. Ela começa vazia porque ainda não adicionamos nenhuma tarefa.
 const tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
 
+let tarefaSelecionada = null;
+
 function atualizarTarefas() {
   localStorage.setItem("tarefas", JSON.stringify(tarefas));
 }
@@ -69,7 +71,17 @@ function criarElementoTarefa(tarefa) {
   li.append(botao);
 
   li.onclick = () => {
+    document.querySelectorAll(".app__section-task-list-item-active").forEach((elemento) => {
+      elemento.classList.remove("app__section-task-list-item-active");
+    });
+    if (tarefaSelecionada == tarefa) {
+      paragrafoDescricaoTarefa.textContent = "";
+      tarefaSelecionada = null;
+      return;
+    }
+    tarefaSelecionada = tarefa;
     paragrafoDescricaoTarefa.textContent = tarefa.descricao;
+
     li.classList.add("app__section-task-list-item-active");
   };
   return li;
